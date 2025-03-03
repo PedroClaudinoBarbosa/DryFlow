@@ -1,0 +1,33 @@
+#include "DHT.h"  // Inclui a biblioteca necessária para o sensor DHT.
+ 
+#define TIPO_SENSOR DHT11  // Define o tipo de sensor para DHT11.
+const int PINO_SENSOR_DHT = A0;  // Define o pino onde o sensor está conectado. (A0)
+
+DHT sensorDHT(PINO_SENSOR_DHT, TIPO_SENSOR);  // Inicia o sensor DHT, informando em qual pino ele esta conectado e qual o modelo do sensor utilizado.
+
+// função que será executada uma vez quando ligar ou resetar o arduino
+void setup(){ 
+  Serial.begin(9600);  // Inicia a comunicação serial.
+  sensorDHT.begin();   // Inicializa o sensor DHT.
+}
+
+// função que será executada continuamente
+void loop(){
+  float umidade = sensorDHT.readHumidity();  // Lê o valor da umidade do sensor.
+  float temperatura = sensorDHT.readTemperature();  // Lê o valor da temperatura.
+
+  // Verifica se a leitura funcionou e exibe uma mensagem de erro se necessário.
+  if (isnan(temperatura) || isnan(umidade)) {
+    Serial.println("Erro ao ler os dados do sensor");
+  } else {
+    // Exibe os valores de umidade e temperatura no monitor serial.
+    Serial.print("Umidade: ");
+    Serial.print(umidade);
+    Serial.print(" % ");
+    Serial.print("Temperatura: ");
+    Serial.print(temperatura);
+    Serial.println(" ºC");
+  }
+
+  delay(1000);  // Aguarda 1 segundo antes de fazer a próxima leitura.(1000ms)
+}

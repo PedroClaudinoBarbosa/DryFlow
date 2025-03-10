@@ -1,0 +1,20 @@
+1
+Dados de Entrada:
+Quantidade de Compressores
+Custo de Manuntenção Corretiva
+Custo de Manuntenção Preventiva
+Custo de Parada de Produçao (R$/hora)
+Tempo médio de para (horas)
+Custo de um novo compressor
+
+Dados de Saída:
+
+GASTOS SEM O SENSOR
+Gastos com Manuntenção Corretiva:
+- Quantidade de Compressores X (Custo de Manuntenção Corretiva + (Custo de Parada de Produçao (R$/hora) + Tempo médio de para (horas))
+Gastos com Novo Compressor:
+- Quantidade de Compressores X (Custo de um Novo Compressor + (Custo de Parada de Produçao (R$/hora) + Tempo médio de para (horas))
+
+GASTOS COM O SENSOR
+Custo de Manuntenção Preventiva com Sensor:
+- Quantidade de Compressores X (Custo do Sensor + (Quantidade de Compressores + (Custo de Parada de Produçao (R$/hora) + Tempo médio de para (horas)))

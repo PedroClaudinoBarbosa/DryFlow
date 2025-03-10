@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <style>
+        body {
+            background-color: #dfd6ce;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #9a0000;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background-color: #6c0d11;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #f5c6c6;
+        }
+
+        #div_resultado {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora Financeira - Perda por Falha no Compressor</h2>
+    
+    <label>Valor de um novo compressor (R$):</label><br>
+    <input type="number" id="valorCompressor" placeholder="Ex: 20000"><br>
+    
+    <label>Tempo estimado de paralisação (horas):</label><br>
+    <input type="number" id="horasParadas" placeholder="Ex: 8"><br>
+    
+    <label>Perda por hora de produção (R$):</label><br>
+    <input type="number" id="perdaPorHora" placeholder="Ex: 500"><br>
+    <br><br>
+    <button onclick="calcularPerdas()">Calcular Perdas</button>
+
+    <div id="div_resultado"></div>
+
+    <script>
+        function calcularPerdas() {
+            var valorComp = Number(valorCompressor.value)
+            var horasPerdidas = Number(horasParadas.value)
+            var perdaHora = Number(perdaPorHora.value)
+            var custoPrevencao = 10000; // Valor fixo do serviço de prevenção (podendo haver alterações ao decorrer do projeto)
+
+
+            if (valorComp == 0) {
+                div_resultado.innerHTML = `O valor do compressor não pode ser zero.`
+            } else if (horasPerdidas == 0) {
+                div_resultado.innerHTML = `O tempo de paralisação não pode ser zero.`
+            } else if (perdaHora == 0) {
+                div_resultado.innerHTML = `A perda por hora não pode ser zero.`
+            } else if (valorComp < 0) {
+                div_resultado.innerHTML = `O valor do compressor não pode ser negativo.`
+            } else if (horasPerdidas < 0) {
+                div_resultado.innerHTML = `O tempo de paralisação não pode ser negativo.`
+            } else if (perdaHora < 0) {
+                div_resultado.innerHTML = `A perda por hora não pode ser negativa.`
+
+
+            } else {
+                var perdaTotal = valorComp + (horasPerdidas * perdaHora);
+                div_resultado.innerHTML += `<br>🔴 Perda total estimada: R$${perdaTotal.toFixed(2)}`
+                div_resultado.innerHTML += `<br>🕒 Perda por hora: R$${perdaHora.toFixed(2)}`
+                div_resultado.innerHTML += `<br>✅ Custo do nosso serviço de prevenção: R$${custoPrevencao.toFixed(2)}`
+
+                    if (perdaTotal > custoPrevencao) {
+                        div_resultado.innerHTML += `<br><span style='color: yellow'>O prejuízo é maior que o custo do serviço! Vale a pena investir na prevenção.`
+                    } else {
+                        div_resultado.innerHTML += `<br><span style='color: green'>O custo do serviço já cobre a possível perda. Prevenção recomendada!`
+                    }
+            }
+
+        }
+
+    </script>
+</body>
+</html>

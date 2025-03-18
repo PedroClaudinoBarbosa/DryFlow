@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro - Flow</title>
+    <style>
+        /*Estilo geral para os textos do html*/
+        *
+        {
+            margin: 0;                         /*Retira as margens padrão*/
+            padding: 0;                        /*Retira os preenchimentos padrão*/
+            box-sizing: border-box;            /*Garante que o tamanho total do elemento inclua bordas e preenchimentos*/
+            font-family: 'Arial', sans-serif;  /*Define a fonte padrão para os textos*/
+        }
+
+        /*Estilo para segundos títulos*/
+        body {
+            display: flex;                                                           /*Torna os elementos mais flexíveis (facilita adição de regras de estilo)*/
+            flex-direction: column;                                                  /*Define a cor de fundo (gradiente)*/
+            align-items: center;                                                     /*Alinha os elementos ao centro*/
+            background: linear-gradient(to right, #2c2c2c, #595959, #8c8c8c);  /*Define a cor de fundo (gradiente)*/
+            color: #fff;                                                           /*Define uma cor para um elemento de texto*/
+            text-align: center;                                                      /*Alinha o texto ao centro*/
+            padding: 20px;                                                           /*Define um espaço entre o contéudo e a borda*/
+        }
+
+        /*Estilo para tags de segundo título*/
+        h2 {
+            margin-bottom: 5px;         /*Define um espaçamento para baixo*/
+            font-size: 22px;            /*Define o tamanho da fonte*/
+            font-weight: bold;          /*Define a espessura da fonte*/
+            text-transform: uppercase;  /*Transforma o texto em maiúsculo*/
+        }
+
+        /*Estilo para tags de terceiro título*/
+        h3 {
+            margin-bottom: 15px;        /*Define um espaçamento para baixo*/
+            font-size: 10px;            /*Define o tamanho da fonte*/
+            font-style: italic;          /*Define a espessura da fonte*/
+        }
+
+        /*Estilo para tags de parágrafo*/
+        p {
+            margin: 10px 0 5px;  /*Define o espaço entre as margens do elemento*/
+            font-size: 16px;     /*Define o tamanho da fonte*/
+            font-weight: bold;   /*Define a espessura da fonte*/
+        }
+
+        /*Estilo para tags de input*/
+        input {
+            width: 100%;                             /*Define uma largura de acordo com o elemento pai*/
+            padding: 12px;                           /*Define um espaço entre o contéudo e a borda*/
+            font-size: 16px;                         /*Define o tamanho da fonte*/
+            border: none;                            /*Define a espessura da fonte*/
+            border-radius: 50px;                     /*Define o quão arrendondado é os cantos do elemento*/
+            outline: none;                           /*Retira o contorno*/
+            background: rgba(255, 255, 255, 0.7);  /*Define a cor de fundo*/
+            color: #333;                           /*Define uma cor para um elemento de texto*/
+        }
+
+        /*Estilo para tags de botão*/
+        button {
+            width: 100%;            /*Define uma largura de acordo com o elemento pai*/
+            padding: 12px;          /*Define um espaço entre o contéudo e a borda*/
+            margin-top: 15px;       /*Define um espaçamento para cima*/
+            font-size: 18px;        /*Define o tamanho da fonte*/
+            font-weight: bold;      /*Define a espessura da fonte*/
+            color: #fff;          /*Define uma cor para um elemento de texto*/
+            background: #990000;  /*Define a cor de fundo*/
+            border: none;           /*Retira a borda*/
+            border-radius: 50px;    /*Define o quão arrendondado é os cantos do elemento*/
+            cursor: pointer;        /*Define uma cor para um elemento de texto*/
+            transition: 0.3s;       /*Define um tempo de transição para aplicar estilos*/
+        }
+     
+        /*Estilo para tags de botão quando o mouse estiver em cima*/
+        button:hover {
+            background: #4e0505;  /*Define a cor de fundo*/
+            transform: scale(1.05);  /*Altera o tamanho por escala*/
+        }
+
+        /*Estilo para uma caixa*/
+        .container {
+            width: 100%;                                    /*Define uma largura de acordo com o elemento pai*/
+            max-width: 420px;                               /*Limita a largura do elemento*/
+            padding: 25px;                                  /*Define um espaço entre o contéudo e a borda*/
+            background: rgba(255, 255, 255, 0.1);         /*Define a cor de fundo*/
+            border-radius: 15px;                            /*Define o quão arrendondado é os cantos do elemento*/
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);  /*Cria um efeito de drop-shadow*/
+            backdrop-filter: blur(10px);                    /*Adiciona um filtro ao fundo*/
+            margin-bottom: 20px;                            /*Define um espaçamento para baixo*/
+        }       
+
+        /*Estilo para um elemento de texto*/
+        .economia {
+            color: rgb(0, 150, 0); /*Define uma cor para um elemento de texto*/
+        }
+
+        /*Estilo para um elemento de texto*/
+        .gasto {
+            color: rgb(150, 0, 0); /*Define uma cor para um elemento de texto*/
+        }
+
+        /*Estilo para o fundo da página*/
+        .background-container {
+            position: fixed;                                             /*Mantém o fundo fixo na tela*/
+            top: 0;                                                      /*Alinha o fundo ao topo*/
+            left: 0;                                                     /*Alinha o fundo à esquerda*/
+            width: 100%;                                                 /*Ocupa toda a largura da tela*/
+            height: 100%;                                                /*Ocupa toda a altura da tela*/
+            background: url('Fundo.png') no-repeat center center/cover;  /*Define uma imagem de fundo*/
+            filter: brightness(0.5);                                     /*Aplica um filtro de brilho*/
+            z-index: -1;                                                 /*Coloca o fundo atrás dos outros elementos*/
+        }
+    </style>
+</head>
+<body>
+
+    <!--Background da página--> 
+    <div class="background-container"></div>
+
+    <!--Caixa de seleção das calculadoras--> 
+    <div class="container">
+        <h2>Selecione o simulador financeiro</h2>
+
+        <!--Cria um botão para selecionar a calculadora de gastos com retrabalho-->  
+        <button onclick="pintura()">Economia com Refação</button>
+        
+        <!--Cria um botão para selecionar a calculadora de manutenção--> 
+        <button onclick="manuntecao()">Economia com Manutenção</button>     
+          
+    </div>
+
+    <!--Div onde as calculadoras serão exibidas dinamicamente--> 
+    <div id="div_calculadoras"></div>
+    
+
+    <script>
+        /*Função para exibir a calculadora de economia com retrabalho*/
+        function pintura(){
+            div_calculadoras.innerHTML = 
+            `       
+            <div class="container">
+                <h2>Economia com Refação</h2>
+                <h3>Calcular possíveis gasto com refação de pintura de carros</h3>
+
+                <p>Número de carros pintados por mês</p>
+                <input type="number" id="ipt_numeroCarros" placeholder="Ex: 100">
+
+                <p>Custo de tinta por carro (R$)</p>
+                <input type="number" id="ipt_tinta" placeholder="Ex: 400">
+
+                <p>Porcentagem de retrabalho devido à umidade (%)</p>
+                <input type="number" id="ipt_porcentagem" placeholder="Ex: 20">
+
+                <p>Custo médio por retrabalho (R$)</p>
+                <input type="number" id="ipt_custoRetrabalho" placeholder="Ex: 100">
+                
+                <button onclick="calculoRetrabalho()">Calcular Economia</button>
+                
+                <div id="div_mensagem"></div>
+            </div>`;
+            
+        }
+
+        /*Função para exibir a calculadora de economia com manutenção*/
+        function manuntecao(){
+            div_calculadoras.innerHTML =
+            `   
+                <div class="container">
+                    <h2>Economia com Manutenção</h2>
+                    <h3>Calcular possíveis gastos com  a manuntenção dos compressores de ar</h3>
+
+                    <p>Quantidade de Compressores</p>
+                    <input type="number" id="ipt_quantidadeCompressores" placeholder="Ex: 10">
+
+                    <p>Custo de Manutenção Corretiva (R$)</p>
+                    <input type="number" id="ipt_custoCorretiva" placeholder="Ex: 5000">
+
+                    <p>Custo de Manutenção Preventiva (R$)</p>
+                    <input type="number" id="ipt_custoPreventiva" placeholder="Ex: 1000">
+
+                    <p>Custo de Parada de Produção (R$/hora)</p>
+                    <input type="number" id="ipt_custoParada" placeholder="Ex: 2000">
+
+                    <p>Tempo Médio de Parada (horas)</p>
+                    <input type="number" id="ipt_tempoParada" placeholder="Ex: 5">
+
+                    <button onclick="calculoManutencao()">Calcular Economia</button>
+
+                    <div id="div_mensagem2"></div>
+                </div>`;
+        }
+
+        /*Função para calcular a economia com retrabalho*/
+        function calculoRetrabalho(){
+            var numeroCarros = Number(ipt_numeroCarros.value);
+            var custoTinta = Number(ipt_tinta.value);
+            var porcentagem = Number(ipt_porcentagem.value);
+            var custoRetrabalho = Number(ipt_custoRetrabalho.value);
+
+            // Cálculo do custo total de retrabalho
+            var carrosRetrabalhados = numeroCarros * (porcentagem / 100); // Número de carros retrabalhados
+            var custoTotalRetrabalho = carrosRetrabalhados * (custoRetrabalho+custoTinta); 
+
+            // Economia estimada com Flow (redução de 20% no retrabalho)
+            var economia = custoTotalRetrabalho * 0.2;
+
+            // Exibição dos resultados com formatação
+            div_mensagem.innerHTML = `<br>🚀 <b>Economia estimada com Flow:</b> <br><span class="economia"><b>R$ ${economia.toFixed(2)}</b></span> por mês!<br>
+                                      📉 <b>Custo atual com refação:</b> <br><span class="gasto"><b>R$ ${custoTotalRetrabalho.toFixed(2)}</b></span> por mês!`;
+        }
+
+        /*Função para calcular a economia com manutenção*/
+        function calculoManutencao(){
+            var quantidadeCompressores = Number(ipt_quantidadeCompressores.value);
+            var custoCorretiva = Number(ipt_custoCorretiva.value);
+            var custoPreventiva = Number(ipt_custoPreventiva.value);
+            var custoParada = Number(ipt_custoParada.value);
+            var tempoParada = Number(ipt_tempoParada.value);
+            var custoFlow = 100;
+                    
+            // Cálculo do custo com manutenção corretiva
+            var gastoCorretiva = quantidadeCompressores * (custoCorretiva + (custoParada * tempoParada));
+
+            // Cálculo do custo com manutenção preventiva utilizando o sensor
+            var gastoPreventiva = quantidadeCompressores + (custoFlow + custoPreventiva);
+                    
+            // Exibição dos resultados com formatação
+            div_mensagem2.innerHTML = `<br>📉 <b>Manutenção corretiva do compressor sem o Flow:</b> <br><span class="gasto">R$ <b>${gastoCorretiva.toFixed(2)}</b></span><br>
+                                       🚀 <b>Manutenção preventiva do compressor com o Flow:</b> <br><span class="economia">R$ <b>${gastoPreventiva.toFixed(2)}</span></b>`;
+        }
+    </script>
+</body>
+</html>

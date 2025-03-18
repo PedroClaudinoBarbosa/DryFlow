@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+
+    <style>
+
+        /*Altera a aparencia dos textos no body*/
+        body {
+            color: #27231f;
+            font-family: Trebuchet MS, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /*Cria uma caixa*/
+        .container {
+            background: #f5d900;
+            padding: 40px;
+            border-radius: 50px;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            
+        }
+
+        /*Altera a aparencia do botão e do input*/
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #000000;
+            border-radius: 40px;
+        }
+
+        /*Altera a aparencia do botão */
+        button {
+            background-color: #f59f00;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /*Altera a aparencia do botão quando coloca o mouse em cima*/
+        button:hover {
+            background-color: #91660a;
+        }       
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Economia com o Sensor </h1>
+
+        <!-- Recebe o custo da manuntenção preventiva -->
+        <p>Custo da Manuntenção Preventiva (R$)</p>
+        <input type="number" min="0" id="ipt_preventiva" placeholder="Ex: R$1000">
+
+        <!-- Recebe o custo da para da produção por hora -->
+        <p>Custo de Parada da Produção (R$/hora)</p>
+        <input type="number" min="0" id="ipt_custoParada" placeholder="Ex: R$150">
+
+        <!-- Recebe o tempo médio de parada da produção -->
+        <p>Tempo médio de parada (horas)</p>
+        <input type="number" min="0" id="ipt_tempoParada" placeholder="Ex: 1000">
+
+        <!-- Recebe o custo de um novo compressor -->
+        <p>Custo de um novo compressor (R$)</p>
+        <input type="number" id="ipt_valorCompressor" placeholder="Ex: 30000">
+
+        <button onclick="calcularEconomia()">Calcular Economia com o Sensor</button>
+
+        <div id="div_economia"></div>
+        <div id="div_vidaUtil"></div>
+    </div>
+    
+</body>
+</html>
+<script>
+     function calcularEconomia() {
+
+            var custoPreventivo = Number(ipt_preventiva.value);
+            var custoParada = Number(ipt_custoParada.value);
+            var tempoParada = Number(ipt_tempoParada.value);
+            var custoCompressor = Number(ipt_valorCompressor.value);
+      
+            var economiaTotal = custoPreventivo + custoCompressor + (custoParada*tempoParada);
+
+            div_economia.innerHTML = `A economia estimada com o sensor é de <b style ="color: green;">R$ ${economiaTotal.toFixed(2)}</b> considerando manutenção, paradas evitadas e troca de compressor evitada.`
+        }
+</script>
